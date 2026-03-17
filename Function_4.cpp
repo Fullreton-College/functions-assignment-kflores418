@@ -30,13 +30,49 @@ this function.)
 #include <iostream>
 using namespace std;
 
+void computeCoins(int coinValue, int& num, int& amountLeft);
+//Precondition: 0 < coinValue < 100; 0 <= amountLeft < 100.
+//Postcondition: num has been set equal to the maximum number
+//of coins of denomination coinValue cents that can be obtained
+//from amountLeft. Additionally, amountLeft has been decreased
+//by the value of the coins, that is, decreased by
+//num * coinValue.
+
+
 //define necessary functions
 int main()
 {
+  int change;
+  cout << "Enter the change (1 cents to 99 cents) you need:";
+  cin >> change;
+  while (change < 1 || change > 99) 
+  {
+    cout << "Invalid number, enter the change you need:";
+    cin >> change;
+  }
+  
+  int quarters = 0;
+  int dimes = 0;
+  int pennies = 0;
 
-  //your code goes here
+  int amountLeft = change;
+
+  computeCoins(25, quarters, amountLeft);
+  computeCoins(10, dimes, amountLeft);
+  computeCoins(1, pennies, amountLeft);
+
+  cout << change << " cents can be given as "
+    << quarters << " quarter(s) " << dimes 
+    << " dime(s) and " << pennies
+    << " penny (pennies)." << endl;
 
 return 0;
+}
+
+void computeCoins(int coinValue, int& num, int& amountLeft)
+{
+  num = amountLeft/coinValue;
+  amountLeft = amountLeft%coinValue;
 }
 
 //implement functions
